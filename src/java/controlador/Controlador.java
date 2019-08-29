@@ -38,16 +38,11 @@ public class Controlador extends HttpServlet {
         String accion=request.getParameter("accion");
         
         switch(accion) {
-            case "Ingresar":
-                String nombreUsuario=request.getParameter("nombreUsuario");
-                String contra=request.getParameter("contra");
-                if(nombreUsuario.equals(usuarioDefecto) && contra.equals(contraDefecto)) {
-                    response.sendRedirect("PantallaPrincipal.jsp");
-                }
-                else {
-                    response.sendRedirect("index.jsp");
-                }
+            case "Principal":
+                request.getRequestDispatcher("PantallaPrincipal.jsp").forward(request, response);
                 break;
+            default:
+                throw new AssertionError();
         }
         
     }
