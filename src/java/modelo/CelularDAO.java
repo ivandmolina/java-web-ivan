@@ -6,9 +6,16 @@
 package modelo;
 
 import config.Conexion;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -20,6 +27,7 @@ public class CelularDAO {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
+
     /*int r;
 
     public int agregar(Celular c) {
@@ -38,5 +46,64 @@ public class CelularDAO {
         }
         return r;
     }*/
+
+    public List listar() {
+
+        String sql = "select * from celulares";
+        List<Celular> lista = new ArrayList<>();
+
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                Celular celular = new Celular();
+                celular.setId(rs.getInt(1));
+                celular.setMarca(rs.getString(2));
+                celular.setModelo(rs.getString(3));
+                celular.setPrecio(rs.getDouble(4));
+                celular.setColor(rs.getString(5));
+                celular.setStock(rs.getInt(6));
+                celular.setFoto(rs.getBinaryStream(7));
+                lista.add(celular);
+
+            }
+
+        } catch (Exception e) {
+        }
+
+        return lista;
+
+    }
+
+    //Muestra la imágen almacenada en la base de datos
+    public void listarImg(int id, HttpServletResponse response) {
+
+        String sql = "select * from celulares where id=" + id;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        response.setContentType("image/*");
+
+        try {
+            outputStream = response.getOutputStream();
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                inputStream = rs.getBinaryStream(7);
+            }
+            bufferedInputStream = new BufferedInputStream(inputStream);
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+            int i = 0;
+            while ((i = bufferedInputStream.read()) != -1) {
+                bufferedOutputStream.write(i);
+            }
+        } catch (Exception e) {
+        }
+
+    }
 
 }

@@ -7,25 +7,19 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Celular;
 import modelo.CelularDAO;
 
 /**
  *
  * @author xxx
  */
-public class Controlador extends HttpServlet {
-
-    /*String usuarioDefecto = "ivan";
-    String contraDefecto = "12345";*/
+public class ControladorImg extends HttpServlet {
     
-    Celular celular = new Celular();
-    CelularDAO celularDAO = new CelularDAO();
+    CelularDAO celularDAO=new CelularDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,23 +33,18 @@ public class Controlador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        String accion=request.getParameter("accion");
-        
-        switch(accion) {
-            case "Principal":
-                request.getRequestDispatcher("PantallaPrincipal.jsp").forward(request, response);
-                break;
-            case "Listar":
-                List<Celular> lista = celularDAO.listar();
-                request.setAttribute("lista", lista);
-                request.getRequestDispatcher("ListaDeCelulares.jsp").forward(request, response);
-                break;
-            default:
-                throw new AssertionError();
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ControladorImg</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ControladorImg at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,7 +59,11 @@ public class Controlador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        
+        int id=Integer.parseInt(request.getParameter("id"));
+        celularDAO.listarImg(id, response);
+        
     }
 
     /**
@@ -85,6 +78,9 @@ public class Controlador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        
+        
     }
 
     /**
