@@ -28,24 +28,7 @@ public class CelularDAO {
     PreparedStatement ps;
     ResultSet rs;
 
-    /*int r;
-
-    public int agregar(Celular c) {
-        String sql = "insert into celulares(marca,modelo,precio,color,foto,stock)values(?,?,?,?,?,?)";
-        try {
-            con=cn.Conexion();
-            ps=con.prepareStatement(sql);
-            ps.setString(1, c.getMarca());
-            ps.setString(2, c.getModelo());
-            ps.setString(3, Double.toString(c.getPrecio()));
-            ps.setString(4, c.getColor());
-            ps.setString(5, c.getFoto());
-            ps.setString(6, Integer.toString(c.getStock()));
-            ps.executeUpdate();
-        } catch (Exception e) {
-        }
-        return r;
-    }*/
+    int r;
 
     public List listar() {
 
@@ -103,6 +86,91 @@ public class CelularDAO {
             }
         } catch (Exception e) {
         }
+
+    }
+
+    public void agregar(Celular celular) {
+
+        String sql = "insert into celulares(marca, modelo, precio, color, stock, foto)values(?,?,?,?,?,?)";
+
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, celular.getMarca());
+            ps.setString(2, celular.getModelo());
+            ps.setDouble(3, celular.getPrecio());
+            ps.setString(4, celular.getColor());
+            ps.setInt(5, celular.getStock());
+            ps.setBlob(6, celular.getFoto());
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void eliminar(int id) {
+
+        String sql = "delete from celulares where id=" + id;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+
+    }
+
+    public Celular listarId(int id) {
+
+        Celular celular = new Celular();
+        String sql = "select * from celulares where id=" + id;
+
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                celular.setMarca(rs.getString(2));
+                celular.setModelo(rs.getString(3));
+                celular.setPrecio(rs.getDouble(4));
+                celular.setColor(rs.getString(5));
+                celular.setStock(rs.getInt(6));
+                celular.setFoto(rs.getBinaryStream(7));
+
+            }
+
+        } catch (Exception e) {
+        }
+
+        return celular;
+
+    }
+
+    public int actualizar(Celular celular) {
+
+        String sql = "update celulares set marca=?, modelo=?, precio=?, color=?, stock=?, foto=? where id=?";
+
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, celular.getMarca());
+            ps.setString(2, celular.getModelo());
+            ps.setDouble(3, celular.getPrecio());
+            ps.setString(4, celular.getColor());
+            ps.setInt(5, celular.getStock());
+            ps.setBlob(6, celular.getFoto());
+            ps.setInt(7, celular.getId());
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+        }
+
+        return r;
 
     }
 

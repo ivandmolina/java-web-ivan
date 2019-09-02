@@ -22,6 +22,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="Controlador?accion=Listar" target="myFrame">Lista de celulares</a>
+                            <a class="dropdown-item" href="Controlador?accion=Agregar" target="myFrame">Agregar nuevo celular</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -29,7 +30,7 @@
                             Clientes
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Lista de clientes</a>
+                            <a class="dropdown-item" href="Controlador?accion=ListarClientes" target="myFrame">Lista de clientes</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -44,16 +45,20 @@
             </div>
             <div class="dropdown">
                 <button style="margin-left: 10px; border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Usuario ingresado
+                    ${usuario.getNombres()}
                 </button>
                 <div class="dropdown-menu text-center">
                     <a class="dropdown-item" href="#">
                         <img src="img/user.png" alt="60" width="60"/>
                     </a>
-                    <a class="dropdown-item" href="#">usuario</a>
-                    <a class="dropdown-item" href="#">usuario@gmail.com</a>
+                    <a class="dropdown-item" href="#">${usuario.getUser()}</a>
+                    <a class="dropdown-item" href="#">${usuario.getUser()}@gmail.com</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Cerrar sesión</a>
+
+                    <form action="Validar" method="Post">
+                        <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
+                    </form>
+
                 </div>
             </div>
         </nav>
