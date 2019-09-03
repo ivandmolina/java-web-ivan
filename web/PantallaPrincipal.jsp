@@ -31,6 +31,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="Controlador?accion=ListarClientes" target="myFrame">Lista de clientes</a>
+                            <a class="dropdown-item" href="Controlador?accion=AgregarCliente" target="myFrame">Agregar nuevo cliente</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -44,7 +45,7 @@
                 </ul>
             </div>
             <div class="dropdown">
-                <button style="margin-left: 10px; border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button style="margin-right: 25px; border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     ${usuario.getNombres()}
                 </button>
                 <div class="dropdown-menu text-center">
@@ -52,7 +53,6 @@
                         <img src="img/user.png" alt="60" width="60"/>
                     </a>
                     <a class="dropdown-item" href="#">${usuario.getUser()}</a>
-                    <a class="dropdown-item" href="#">${usuario.getUser()}@gmail.com</a>
                     <div class="dropdown-divider"></div>
 
                     <form action="Validar" method="Post">

@@ -41,6 +41,7 @@
                             <td>
                                 <a class="btn btn-info" href="Controlador?accion=Editar&id=${dato.getId()}">Editar</a>
                                 <a class="btn btn-info" href="Controlador?accion=Eliminar&id=${dato.getId()}">Eliminar</a>
+                                <a class="btn btn-info" href="">Vender</a>
                             </td>
                         </tr>
                     </c:forEach>

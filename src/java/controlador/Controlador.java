@@ -32,8 +32,9 @@ public class Controlador extends HttpServlet {
     Celular celular = new Celular();
     CelularDAO celularDAO = new CelularDAO();
     int idCelular;
-    Cliente cliente= new Cliente();
-    ClienteDAO clienteDAO= new ClienteDAO();
+    Cliente cliente = new Cliente();
+    ClienteDAO clienteDAO = new ClienteDAO();
+    int idCliente;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -105,7 +106,7 @@ public class Controlador extends HttpServlet {
                 String color1 = request.getParameter("color");
                 int stock1 = Integer.parseInt(request.getParameter("stock"));
                 Part part1 = request.getPart("fileFoto");
-                InputStream inputStream1=part1.getInputStream();
+                InputStream inputStream1 = part1.getInputStream();
                 celular.setMarca(marca1);
                 celular.setModelo(modelo1);
                 celular.setPrecio(precio1);
@@ -116,13 +117,49 @@ public class Controlador extends HttpServlet {
                 celularDAO.actualizar(celular);
                 request.getRequestDispatcher("Controlador?accion=Listar").forward(request, response);
                 break;
-                
+
             case "ListarClientes":
-                
+
                 List<Cliente> listaClientes = clienteDAO.listar();
                 request.setAttribute("lista", listaClientes);
                 request.getRequestDispatcher("ListaDeClientes.jsp").forward(request, response);
+
+                break;
+
+            case "AgregarCliente":
+                request.getRequestDispatcher("AgregarCliente.jsp").forward(request, response);
+                break;
+
+            case "Agregar nuevo cliente":
+                String nombres = request.getParameter("nombres");
+                int dni = Integer.parseInt(request.getParameter("dni"));
+                cliente.setNombres(nombres);
+                cliente.setDni(dni);
+                clienteDAO.agregar(cliente);
+                request.getRequestDispatcher("Controlador?accion=ListarClientes").forward(request, response);
+                break;
+
+            case "EliminarCliente":
+                idCliente = Integer.parseInt(request.getParameter("id"));
+                clienteDAO.eliminar(idCliente);
+                request.getRequestDispatcher("Controlador?accion=ListarClientes").forward(request, response);
+                break;
+
+            case "EditarCliente":
+                idCliente = Integer.parseInt(request.getParameter("id"));
+                cliente = clienteDAO.listarId(idCliente);
+                request.setAttribute("cliente", cliente);
+                request.getRequestDispatcher("ActualizarCliente.jsp").forward(request, response);
+                break;
                 
+            case "Actualizar cliente":
+                String nombres1 = request.getParameter("nombres");
+                int dni1 = Integer.parseInt(request.getParameter("dni"));
+                cliente.setNombres(nombres1);
+                cliente.setDni(dni1);
+                cliente.setId(idCliente);
+                clienteDAO.actualizar(cliente);
+                request.getRequestDispatcher("Controlador?accion=ListarClientes").forward(request, response);
                 break;
 
             default:
