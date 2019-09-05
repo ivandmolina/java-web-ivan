@@ -30,7 +30,7 @@
                                 <tr>
                                     <td>${dato.getNombres()}</td>
                                     <td>${dato.getDni()}</td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" name="cliente"></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

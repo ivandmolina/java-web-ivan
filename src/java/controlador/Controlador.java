@@ -85,6 +85,7 @@ public class Controlador extends HttpServlet {
                 celularDAO.agregar(celular);
                 request.getRequestDispatcher("Controlador?accion=Listar").forward(request, response);
                 break;
+                
 
             case "Eliminar":
                 idCelular = Integer.parseInt(request.getParameter("id"));
@@ -172,6 +173,13 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("celular", celular);
                 
                 request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
+                break;
+                
+            case "Ventas":
+                List<Cliente> listaClientes3 = clienteDAO.listar();
+                request.setAttribute("lista", listaClientes3);
+                
+                request.getRequestDispatcher("Ventas.jsp").forward(request, response);
                 break;
 
             default:

@@ -34,6 +34,14 @@
                             <a class="dropdown-item" href="Controlador?accion=AgregarCliente" target="myFrame">Agregar nuevo cliente</a>
                         </div>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a style="margin-left: 10px; border: none" class="btn btn-outline-light dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Ventas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="Controlador?accion=Ventas" target="myFrame">Lista de ventas</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <div class="dropdown">
