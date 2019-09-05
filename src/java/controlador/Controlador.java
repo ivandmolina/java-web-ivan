@@ -161,6 +161,18 @@ public class Controlador extends HttpServlet {
                 clienteDAO.actualizar(cliente);
                 request.getRequestDispatcher("Controlador?accion=ListarClientes").forward(request, response);
                 break;
+                
+            case "RegistrarVenta":
+                
+                //Muestra la lista de clientes
+                List<Cliente> listaClientes2 = clienteDAO.listar();
+                request.setAttribute("lista", listaClientes2);
+                idCelular = Integer.parseInt(request.getParameter("id"));
+                celular = celularDAO.listarId(idCelular);
+                request.setAttribute("celular", celular);
+                
+                request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
+                break;
 
             default:
                 throw new AssertionError();
