@@ -8,6 +8,9 @@ package controlador;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -85,7 +88,6 @@ public class Controlador extends HttpServlet {
                 celularDAO.agregar(celular);
                 request.getRequestDispatcher("Controlador?accion=Listar").forward(request, response);
                 break;
-                
 
             case "Eliminar":
                 idCelular = Integer.parseInt(request.getParameter("id"));
@@ -152,7 +154,7 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("cliente", cliente);
                 request.getRequestDispatcher("ActualizarCliente.jsp").forward(request, response);
                 break;
-                
+
             case "Actualizar cliente":
                 String nombres1 = request.getParameter("nombres");
                 int dni1 = Integer.parseInt(request.getParameter("dni"));
@@ -162,24 +164,29 @@ public class Controlador extends HttpServlet {
                 clienteDAO.actualizar(cliente);
                 request.getRequestDispatcher("Controlador?accion=ListarClientes").forward(request, response);
                 break;
-                
+
             case "RegistrarVenta":
-                
+
                 //Muestra la lista de clientes
                 List<Cliente> listaClientes2 = clienteDAO.listar();
                 request.setAttribute("lista", listaClientes2);
                 idCelular = Integer.parseInt(request.getParameter("id"));
                 celular = celularDAO.listarId(idCelular);
                 request.setAttribute("celular", celular);
-                
+
                 request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
                 break;
-                
+
             case "Ventas":
-                List<Cliente> listaClientes3 = clienteDAO.listar();
-                request.setAttribute("lista", listaClientes3);
+
+                /*Calendar calendario=Calendar.getInstance();
+                String fechaActual=calendario.get(Calendar.DATE)+"/"+calendario.get(Calendar.MONTH)+"/"+calendario.get(Calendar.YEAR);*/
                 
-                request.getRequestDispatcher("Ventas.jsp").forward(request, response);
+                Date dNow = new Date();
+                SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
+                String fechaActual = ft.format(dNow);
+
+                request.getRequestDispatcher("Ventas.jsp?fecha=" + fechaActual).forward(request, response);
                 break;
 
             default:

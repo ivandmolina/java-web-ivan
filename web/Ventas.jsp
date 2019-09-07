@@ -18,19 +18,17 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Nombre cliente</th>
+                    <th>Nombre del cliente</th>
                     <th>Celular</th>
-                    <th>Fecha</th>
+                    <th>Fecha de venta</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="dato" items="${lista}">
                     <tr>
                         <td>${dato.getNombres()}</td>
                         <td>${celular.getMarca()}</td>
-                        <td></td>
+                        <td><%= request.getParameter("fecha")%> </td>
                     </tr>
-                    </c:forEach>
             </tbody>
         </table>
 

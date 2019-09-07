@@ -30,7 +30,7 @@
                                 <tr>
                                     <td>${dato.getNombres()}</td>
                                     <td>${dato.getDni()}</td>
-                                    <td><input type="checkbox" name="cliente"></td>
+                                    <td><input type="checkbox" name="cliente" value="${dato.getId()}"></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -53,7 +53,7 @@
                             <input type="text" name="color" class="form-control" value="${celular.getColor()}"  required="required" disabled>
                         </div>
                         <center>
-                            <a class="btn btn-info" href="">Confirmar venta</a>
+                            <a class="btn btn-info" href="Controlador?accion=Ventas" target="myFrame">Confirmar venta</a>
                             <a class="btn btn-info" href="Controlador?accion=Listar" target="myFrame">Cancelar</a>
                         </center>
                     </form>
